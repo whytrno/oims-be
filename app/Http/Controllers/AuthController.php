@@ -12,18 +12,17 @@ class AuthController extends Controller
 {
     public function register()
     {
-        return view('register');
+        return view('auth.register');
     }
 
     public function registerProcess(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'email' => 'required|string|email|max:255|unique:users,email',
-            'role_id' => 'required|exists:roles,id',
             'password' => 'required|string|min:8',
             'password_confirm' => 'required|same:password',
-            'name' => 'required|string|max:255',
-            'phone' => 'required|string|max:255',
+            'nama' => 'required|string|max:255',
+            'no_hp' => 'required|string|max:255',
         ]);
 
         if ($validator->fails()) {
@@ -32,15 +31,15 @@ class AuthController extends Controller
 
         try {
             $user = User::create([
-                'role_id' => $request->role_id,
+                'role_id' => 1,
                 'email' => $request->email,
                 'password' => $request->password
             ]);
 
             Profile::create([
                 'user_id' => $user->id,
-                'nama' => $request->name,
-                'no_hp' => $request->phone,
+                'nama' => $request->nama,
+                'no_hp' => $request->no_hp,
             ]);
 
             return redirect()->route('login');
@@ -51,7 +50,7 @@ class AuthController extends Controller
 
     public function login()
     {
-        return view('login');
+        return view('auth.login');
     }
 
     public function loginProcess(Request $request)
@@ -65,5 +64,11 @@ class AuthController extends Controller
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }
+    }
+
+    public function logout()
+    {
+        Auth::guard('web')->logout();
+        return redirect()->route('login');
     }
 }

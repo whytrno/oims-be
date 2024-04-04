@@ -83,8 +83,9 @@ class AuthController extends Controller
         $user = Auth::user()->profile;
 
         $validator = Validator::make($request->all(), [
-            'nama' => 'required|string|max:255',
-            'no_hp' => 'required|string|max:255',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'nama' => 'nullable|string|max:255',
+            'no_hp' => 'nullable|string|max:255',
             'nik' => 'nullable|size:16|unique:profiles,nik,' . $user->id . ',id',
             'tempat_lahir' => 'nullable|string|max:255',
             'tgl_lahir' => 'nullable|date',
@@ -108,9 +109,12 @@ class AuthController extends Controller
         }
 
         try {
+            $foto = $request->file('foto');
+            
             $user->update([
-                'nama' => $request->nama,
-                'no_hp' => $request->no_hp,
+                'foto' => $foto ? $foto->store('profile', 'public') : $user->foto,
+                'nama' => $request->nama ? $request->nama : $user->nama,
+                'no_hp' => $request->no_hp ? $request->no_hp : $user->no_hp,
                 'nik' => $request->nik,
                 'tempat_lahir' => $request->tempat_lahir,
                 'tgl_lahir' => $request->tgl_lahir,
