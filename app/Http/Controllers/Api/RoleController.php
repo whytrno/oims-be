@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Http\Traits\ResponseTrait;
 use App\Models\Role;
 use Illuminate\Http\Request;
