@@ -4,8 +4,8 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="apple-touch-icon" sizes="76x76" href="{{asset('img/apple-icon.png')}}">
-    <link rel="icon" type="image/png" href="{{asset('img/favicon.png')}}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{{asset('img/logo.jpeg')}}">
+    <link rel="icon" type="image/png" href="{{asset('img/logo.jpeg')}}">
     <title>
         @yield('title')
     </title>
@@ -19,6 +19,7 @@
     <link href="{{asset('css/nucleo-svg.css')}}" rel="stylesheet"/>
 
     <link id="pagestyle" href="{{asset('css/argon-dashboard.min.css')}}" rel="stylesheet"/>
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 </head>
 
 <body class="g-sidenav-show   bg-gray-100">

@@ -70,7 +70,7 @@ class AuthController extends Controller
     {
         $auth = Auth::user();
         try {
-            $user = User::findOrFail($auth->id)->with(['profile', 'role'])->first();
+            $user = User::where('id', $auth->id)->with(['profile', 'role'])->first();
 
             $user->profile->foto = $user->profile->foto ? asset('storage/' . $user->profile->foto) : null;
 
@@ -92,11 +92,12 @@ class AuthController extends Controller
             'tempat_lahir' => 'nullable|string|max:255',
             'tgl_lahir' => 'nullable|date',
             'alamat_ktp' => 'nullable|string|max:255',
+            'anak' => 'nullable|integer',
             'domisili' => 'nullable|string|max:255',
             'agama' => 'nullable|in:islam,kristen,katolik,hindu,budha,konghucu',
             'status_pernikahan' => 'nullable|in:belum menikah,menikah,cerai',
             'kontak_darurat' => 'nullable|string|max:255',
-            'mcu' => 'nullable|string|max:255',
+            'mcu' => 'nullable|in:ada,tidak ada',
             'no_rek_bca' => 'nullable|string|max:255',
             'pendidikan_terakhir' => 'nullable|in:sd,smp,sma,d3,s1,s2,s3',
             'tgl_bergabung' => 'nullable|date',
@@ -124,6 +125,7 @@ class AuthController extends Controller
                 'domisili' => $request->domisili,
                 'agama' => $request->agama,
                 'status_pernikahan' => $request->status_pernikahan,
+                'anak' => $request->anak,
                 'kontak_darurat' => $request->kontak_darurat,
                 'mcu' => $request->mcu,
                 'no_rek_bca' => $request->no_rek_bca,

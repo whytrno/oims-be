@@ -1,4 +1,4 @@
-<div class="col-6">
+<div class="">
     <label class="form-label">{{ $title }}</label>
     <div class="input-group">
         <input name="{{ $name }}" class="form-control" type="{{ $type }}" placeholder="{{ $placeholder }}"

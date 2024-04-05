@@ -23,8 +23,9 @@ return new class extends Migration {
             $table->string('domisili')->nullable();
             $table->enum('agama', ['islam', 'kristen', 'katolik', 'hindu', 'budha', 'konghucu'])->nullable();
             $table->enum('status_pernikahan', ['belum menikah', 'menikah', 'cerai'])->nullable();
+            $table->integer('anak')->nullable();
             $table->string('kontak_darurat')->nullable();
-            $table->string('mcu')->nullable();
+            $table->enum('mcu', ['ada', 'tidak ada'])->nullable();
             $table->string('no_rek_bca')->nullable();
             $table->enum('pendidikan_terakhir', ['sd', 'smp', 'sma', 'd3', 's1', 's2', 's3'])->nullable();
             $table->date('tgl_bergabung')->nullable();

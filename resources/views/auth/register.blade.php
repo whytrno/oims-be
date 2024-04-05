@@ -9,7 +9,7 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-4 col-md-7">
-                        <div class="card border-0 mb-0">
+                        <div class="card border-0 mb-0" style="background-color:rgba(255, 255, 255, 0.5)">
                             <div class="card-header bg-transparent">
                                 <h5 class="text-dark text-center mt-2 mb-3">Sign up</h5>
                             </div>
@@ -44,7 +44,7 @@
                                     </div>
                                     <div class="mb-2 position-relative text-center">
                                         <p
-                                                class="text-sm font-weight-bold mb-2 text-secondary text-border d-inline z-index-2 bg-white px-3">
+                                            class="text-sm font-weight-bold mb-2 text-secondary text-border d-inline z-index-2 bg-white px-3">
                                             or
                                         </p>
                                     </div>
