@@ -6,4 +6,4 @@ use Illuminate\Support\Facades\Route;
 Route::get('profile', [AuthController::class, 'profile']);
 Route::put('profile', [AuthController::class, 'updateProfile']);
 
-Route::get('logout', [AuthController::class, 'logout']);
+Route::get('logout', [AuthController::class, 'logout'])->name('logout');

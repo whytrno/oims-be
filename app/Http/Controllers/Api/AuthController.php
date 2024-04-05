@@ -72,6 +72,8 @@ class AuthController extends Controller
         try {
             $user = User::findOrFail($auth->id)->with(['profile', 'role'])->first();
 
+            $user->profile->foto = $user->profile->foto ? asset('storage/' . $user->profile->foto) : null;
+
             return $this->successResponse($user, null, 200);
         } catch (\Exception $e) {
             return $this->failedResponse($e->getMessage(), 500);
@@ -110,7 +112,7 @@ class AuthController extends Controller
 
         try {
             $foto = $request->file('foto');
-            
+
             $user->update([
                 'foto' => $foto ? $foto->store('profile', 'public') : $user->foto,
                 'nama' => $request->nama ? $request->nama : $user->nama,

@@ -6,8 +6,9 @@
         <div class="col-12">
             <div class="card">
 
-                <div class="card-header">
+                <div class="card-header d-flex align-items-center justify-content-between">
                     <h5 class="mb-0">Data Users</h5>
+                    <a href="{{route('users.export')}}" class="btn btn-success">Export</a>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-flush" id="datatable-search">
@@ -15,19 +16,41 @@
                         <tr>
                             <th>No</th>
                             <th>Nama</th>
+                            <th>NIK</th>
                             <th>Email</th>
-                            <th>No Hp</th>
-                            <th>Role</th>
+                            <th>Lokasi Site</th>
+                            <th>Aksi</th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach($data as $d)
                             <tr>
                                 <td class="text-sm font-weight-normal">{{$loop->iteration}}</td>
-                                <td class="text-sm font-weight-normal">{{$d->profile->nama}}</td>
-                                <td class="text-sm font-weight-normal">{{$d->profile->no_hp}}</td>
+                                <td class="text-sm font-weight-normal">
+                                    <a href="{{route('users.detail', $d->id)}}"
+                                       class="text-decoration-underline">{{ucfirst($d->profile->nama)}}</a>
+                                </td>
+                                <td class="text-sm font-weight-normal">{{$d->profile->nik ?? '-'}}</td>
                                 <td class="text-sm font-weight-normal">{{$d->email}}</td>
-                                <td class="text-sm font-weight-normal">{{$d->role->name}}</td>
+                                <td class="text-sm font-weight-normal">{{$d->profile->lokasi_site ?? '-'}}</td>
+                                <td class="">
+                                    <a href="{{route('users.detail', $d->id)}}"
+                                       class="text-secondary font-weight-bold text-sm"
+                                       data-toggle="tooltip" data-original-title="Edit user">
+                                        Edit
+                                    </a>
+                                    <form action="{{route('users.delete', $d->id)}}" method="post"
+                                          class="d-inline">
+                                        @csrf
+                                        @method('delete')
+                                        <button type="submit"
+                                                class="text-secondary font-weight-bold text-sm"
+                                                style="margin-left: 5px;"
+                                                data-toggle="tooltip" data-original-title="Delete user">
+                                            Delete
+                                        </button>
+                                    </form>
+                                </td>
                             </tr>
                         @endforeach
                         </tbody>
