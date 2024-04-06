@@ -6,6 +6,7 @@ use App\Exports\UsersExport;
 use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -15,6 +16,10 @@ class UserController extends Controller
     {
         try {
             $data = User::with(['profile', 'role'])->get();
+
+            foreach ($data as $user) {
+                $user->password = Crypt::decrypt($user->password);
+            }
 
             return view('master-data.users.index', compact('data'));
         } catch (\Exception $e) {
@@ -50,7 +55,7 @@ class UserController extends Controller
             'agama' => 'nullable|in:islam,kristen,katolik,hindu,budha,konghucu',
             'status_pernikahan' => 'nullable|in:belum menikah,menikah,cerai',
             'kontak_darurat' => 'nullable|string|max:255',
-            'mcu' => 'nullable|int:ada,tidak ada',
+            'mcu' => 'nullable|in:ada,tidak ada',
             'no_rek_bca' => 'nullable|size:10',
             'pendidikan_terakhir' => 'nullable|in:sd,smp,sma,d3,s1,s2,s3',
             'tgl_bergabung' => 'nullable|date',
@@ -64,9 +69,10 @@ class UserController extends Controller
             return redirect()->back()->with('error', $validator->errors());
         }
 
+
         try {
             $user->update([
-                'foto' => $request->foto ? $request->foto->store('profile', 'public') : $user->foto,
+                'foto' => $request->file('foto') ? $request->file('foto')->store('profile', 'public') : $user->foto,
                 'nama' => $request->nama ? $request->nama : $user->nama,
                 'no_hp' => $request->no_hp ? $request->no_hp : $user->no_hp,
                 'nik' => $request->nik,

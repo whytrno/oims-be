@@ -6,6 +6,7 @@ use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
@@ -33,7 +34,7 @@ class AuthController extends Controller
             $user = User::create([
                 'role_id' => 1,
                 'email' => $request->email,
-                'password' => $request->password
+                'password' => Crypt::encrypt($request->password)
             ]);
 
             Profile::create([
@@ -56,9 +57,13 @@ class AuthController extends Controller
     public function loginProcess(Request $request)
     {
         try {
-            if (!Auth::guard("web")->attempt($request->only('email', 'password'))) {
-                return redirect()->back()->with('error', 'Email atau password salah');
+            $user = User::where('email', $request->email)->first();
+
+            if ($request->password !== Crypt::decrypt($user->password)) {
+                return redirect()->back()->with('error', 'Your credentials are wrong');
             }
+
+            Auth::guard("web")->login($user);
 
             return redirect()->route('dashboard');
         } catch (\Exception $e) {

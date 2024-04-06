@@ -8,6 +8,7 @@ use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
@@ -33,7 +34,7 @@ class AuthController extends Controller
             $user = User::create([
                 'role_id' => $request->role_id,
                 'email' => $request->email,
-                'password' => $request->password
+                'password' => Crypt::encrypt($request->password)
             ]);
 
             Profile::create([
@@ -51,10 +52,10 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         try {
-            $user = User::where('email', $request['email'])->first();
+            $user = User::where('email', $request->email)->first();
 
-            if (!Auth::guard("web")->attempt($request->only('email', 'password'))) {
-                return $this->failedResponse('Your credentials are wrong', 401);
+            if ($request->password !== Crypt::decrypt($user->password)) {
+                return $this->failedResponse('Password is incorrect', 401);
             }
 
             $token = $user->createToken('auth_token')->plainTextToken;

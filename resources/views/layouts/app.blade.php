@@ -23,7 +23,7 @@
     {{--    <script src="https://cdn.tailwindcss.com"></script>--}}
 </head>
 
-<body class="g-sidenav-show   bg-gray-100">
+<body class="g-sidenav-show dark-version bg-gray-600">
 
 @yield('content')
 
