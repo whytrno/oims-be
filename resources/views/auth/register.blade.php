@@ -4,7 +4,7 @@
 @section('content')
     <main class="main-content main-content-bg mt-0">
         <div class="page-header min-vh-100"
-             style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/signin-basic.jpg');">
+             style="background-image: url({{asset('img/auth-bg.jpeg')}}); background-position: left top;">
             <span class="mask bg-gradient-dark opacity-6"></span>
             <div class="container">
                 <div class="row justify-content-center">

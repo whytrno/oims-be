@@ -98,7 +98,7 @@ class AuthController extends Controller
             'status_pernikahan' => 'nullable|in:belum menikah,menikah,cerai',
             'kontak_darurat' => 'nullable|string|max:255',
             'mcu' => 'nullable|in:ada,tidak ada',
-            'no_rek_bca' => 'nullable|string|max:255',
+            'no_rek_bca' => 'nullable|size:10',
             'pendidikan_terakhir' => 'nullable|in:sd,smp,sma,d3,s1,s2,s3',
             'tgl_bergabung' => 'nullable|date',
             'nrp' => 'nullable|string|max:255',

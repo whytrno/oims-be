@@ -19,7 +19,8 @@
     <link href="{{asset('css/nucleo-svg.css')}}" rel="stylesheet"/>
 
     <link id="pagestyle" href="{{asset('css/argon-dashboard.min.css')}}" rel="stylesheet"/>
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
+    {{--    <script src="https://cdn.tailwindcss.com"></script>--}}
 </head>
 
 <body class="g-sidenav-show   bg-gray-100">

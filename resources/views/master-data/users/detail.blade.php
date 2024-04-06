@@ -94,7 +94,7 @@
                     <div class="row row-cols-2 mt-4">
                         <x-input name="nrp" title="NRP" placeholder="085111111111" type="number"
                                  value="{{ $data->profile->nrp }}"/>
-                        <x-input name="no_kontrak" title="No. Kontrak" placeholder="085111111111" type="number"
+                        <x-input name="no_kontrak" title="No. Kontrak" placeholder="085111111111" type="text"
                                  value="{{ $data->profile->no_kontrak }}"/>
                     </div>
                     <div class="row row-cols-2 mt-4">
