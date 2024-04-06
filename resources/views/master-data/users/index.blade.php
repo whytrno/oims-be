@@ -20,7 +20,7 @@
                                 <th>Nama</th>
                                 <th>NIK</th>
                                 <th>Lokasi Site</th>
-                                @if (Auth()->role === 1)
+                                @if (Auth::user()->role === 1)
                                     <th>Aksi</th>
                                 @endif
                             </tr>
@@ -38,7 +38,7 @@
                                     <td class="text-sm font-weight-normal">{{ $d->profile->nik ?? '-' }}</td>
                                     <td class="text-sm font-weight-normal">{{ $d->profile->lokasi_site ?? '-' }}</td>
 
-                                    @if (Auth()->role === 1)
+                                    @if (Auth::user()->role === 1)
                                         <td class="">
                                             <a href="{{ route('users.detail', $d->id) }}"
                                                 class="text-secondary font-weight-bold text-sm" data-toggle="tooltip"
