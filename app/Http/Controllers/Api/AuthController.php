@@ -54,7 +54,7 @@ class AuthController extends Controller
         try {
             $user = User::where('email', $request->email)->first();
 
-            if ($request->password !== Crypt::decrypt($user->password)) {
+            if (!$user || $request->password !== Crypt::decrypt($user->password)) {
                 return $this->failedResponse('Password is incorrect', 401);
             }
 

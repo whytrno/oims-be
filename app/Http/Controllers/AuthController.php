@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Traits\ResponseTrait;
 use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -11,6 +12,8 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
+    use ResponseTrait;
+
     public function register()
     {
         return view('auth.register');
@@ -49,9 +52,13 @@ class AuthController extends Controller
         }
     }
 
-    public function login()
+    public function login(Request $request)
     {
-        return view('auth.login');
+        if (strpos($request->server('HTTP_REFERER'), '/api') !== false) {
+            return $this->failedResponse('You need to login to access this route', 401);
+        } else {
+            return view('auth.login');
+        }
     }
 
     public function loginProcess(Request $request)
@@ -59,7 +66,7 @@ class AuthController extends Controller
         try {
             $user = User::where('email', $request->email)->first();
 
-            if ($request->password !== Crypt::decrypt($user->password)) {
+            if (!$user || $request->password !== Crypt::decrypt($user->password)) {
                 return redirect()->back()->with('error', 'Your credentials are wrong');
             }
 
