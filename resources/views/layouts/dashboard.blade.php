@@ -10,5 +10,5 @@
             @yield('dashboard-content')
         </div>
     </main>
-    @include('components.template-setting')
+    {{-- @include('components.template-setting') --}}
 @endsection
