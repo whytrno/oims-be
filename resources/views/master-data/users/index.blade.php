@@ -15,12 +15,13 @@
                         <thead class="thead-light">
                             <tr>
                                 <th>No</th>
+                                <th>Foto</th>
                                 <th>Nama</th>
                                 <th>NIK</th>
                                 <th>TTL</th>
                                 <th>Alamat</th>
                                 <th>Lokasi Site</th>
-                                @if (Auth::user()->role === 1)
+                                @if (Auth::user()->role_id === 1)
                                     <th>Aksi</th>
                                 @endif
                             </tr>
@@ -29,6 +30,11 @@
                             @foreach ($data as $d)
                                 <tr>
                                     <td class="text-sm font-weight-normal">{{ $loop->iteration }}</td>
+                                    <td class="" style="width: 100px;">
+                                        <img src="{{ asset($d->profile->foto !== null ? 'storage/' . $d->profile->foto : 'img/team-3.jpg') }}"
+                                            alt="" class=""
+                                            style="height: 100px; width: 100px; object-fit: contain;">
+                                    </td>
                                     <td class="text-sm font-weight-normal">
                                         <a href="{{ route('users.detail', $d->id) }}"
                                             class="text-decoration-underline">{{ ucfirst($d->profile->nama) }}</a>
@@ -38,7 +44,7 @@
                                     <td class="text-sm font-weight-normal">{{ $d->profile->alamat_ktp ?? '-' }}</td>
                                     <td class="text-sm font-weight-normal">{{ $d->profile->lokasi_site ?? '-' }}</td>
 
-                                    @if (Auth::user()->role === 1)
+                                    @if (Auth::user()->role_id === 1)
                                         <td class="">
                                             <a href="{{ route('users.detail', $d->id) }}"
                                                 class="text-secondary font-weight-bold text-sm" data-toggle="tooltip"
