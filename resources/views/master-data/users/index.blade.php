@@ -15,10 +15,10 @@
                         <thead class="thead-light">
                             <tr>
                                 <th>No</th>
-                                <th>Email</th>
-                                <th>Password</th>
                                 <th>Nama</th>
                                 <th>NIK</th>
+                                <th>TTL</th>
+                                <th>Alamat</th>
                                 <th>Lokasi Site</th>
                                 @if (Auth::user()->role === 1)
                                     <th>Aksi</th>
@@ -29,13 +29,13 @@
                             @foreach ($data as $d)
                                 <tr>
                                     <td class="text-sm font-weight-normal">{{ $loop->iteration }}</td>
-                                    <td class="text-sm font-weight-normal">{{ $d->email }}</td>
-                                    <td class="text-sm font-weight-normal">{{ $d->password }}</td>
                                     <td class="text-sm font-weight-normal">
                                         <a href="{{ route('users.detail', $d->id) }}"
                                             class="text-decoration-underline">{{ ucfirst($d->profile->nama) }}</a>
                                     </td>
                                     <td class="text-sm font-weight-normal">{{ $d->profile->nik ?? '-' }}</td>
+                                    <td class="text-sm font-weight-normal">{{ $d->profile->ttl ?? '-' }}</td>
+                                    <td class="text-sm font-weight-normal">{{ $d->profile->alamat_ktp ?? '-' }}</td>
                                     <td class="text-sm font-weight-normal">{{ $d->profile->lokasi_site ?? '-' }}</td>
 
                                     @if (Auth::user()->role === 1)

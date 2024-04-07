@@ -30,7 +30,7 @@ class UserController extends Controller
     public function detail($id)
     {
         try {
-            $data = User::with(['profile', 'role'])->find($id);
+            $data = User::with(['profile', 'role'])->where('id', $id)->first();
 
             return view('master-data.users.detail', compact('data'));
         } catch (\Exception $e) {
