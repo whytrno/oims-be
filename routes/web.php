@@ -6,7 +6,7 @@ use App\Http\Middleware\RoleMiddleware;
 use Illuminate\Support\Facades\Route;
 
 
-Route::group(['middleware' => ['auth:sanctum', RoleMiddleware::class . ':1,3']], function () {
+Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/', [MainController::class, 'dashboard'])->name('dashboard');
 
     Route::group(['prefix' => 'master-data'], function () {
